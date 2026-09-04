@@ -4,6 +4,7 @@ A window/task switcher in the style of the macOS app switcher, built as an
 [Omarchy](https://omarchy.org/) shell plugin (QML hosted by the long-running
 `omarchy-shell` Quickshell process).
 
+<img width="2248" height="722" alt="screenshot-2026-09-04_03-21-39" src="https://github.com/user-attachments/assets/0e77e772-13e6-4798-ae91-3ad1c6844d77" />
 
 
 ## Features
