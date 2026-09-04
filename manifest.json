@@ -2,14 +2,16 @@
   "schemaVersion": 1,
   "id": "ewweberlin.QuickSwitch",
   "name": "QuickSwitch",
-  "version": "0.1.0",
-  "author": "ewweberlin",
+  "version": "1.0.0",
+  "author": "Ewgeni Weber",
+  "license": "MIT",
   "description": "macOS-style task/window switcher with window previews. Hold SUPER, tap TAB to cycle, release SUPER to switch to the selected window's workspace. SUPER+Q quits the highlighted app.",
-  "kinds": [
-    "service"
-  ],
+  "kinds": ["service"],
   "keepLoaded": true,
-  "entryPoints": {
-    "service": "Service.qml"
-  }
+  "entryPoints": {"service": "Service.qml"}
+  "service": {
+    "displayName": "QuickSwitch",
+    "category": "Desktop",
+    "allowMultiple": false,
+    "defaultSection": "center"
 }
