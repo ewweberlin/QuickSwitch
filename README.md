@@ -1,6 +1,6 @@
 # QuickSwitch — macOS-style task switcher for Omarchy/Hyprland
 
-A beautiful themed window/task switcher in the style of the macOS app switcher, built as an
+A beautiful, themed window/task switcher in the style of the macOS app switcher, built as an
 [Omarchy](https://omarchy.org/) shell plugin (QML hosted by the long-running
 `omarchy-shell` Quickshell process).
 
