@@ -4,7 +4,7 @@ A window/task switcher in the style of the macOS app switcher, built as an
 [Omarchy](https://omarchy.org/) shell plugin (QML hosted by the long-running
 `omarchy-shell` Quickshell process).
 
-![macOS app switcher concept](https://support.apple.com/library/content/dam/edam/applecare/images/en_US/macos/Big-Sur/macos-big-sur-app-switcher-control-navigation.jpg)
+
 
 ## Features
 
