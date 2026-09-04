@@ -1,6 +1,6 @@
 # QuickSwitch — macOS-style task switcher for Omarchy/Hyprland
 
-A window/task switcher in the style of the macOS app switcher, built as an
+A beautiful themed window/task switcher in the style of the macOS app switcher, built as an
 [Omarchy](https://omarchy.org/) shell plugin (QML hosted by the long-running
 `omarchy-shell` Quickshell process).
 
@@ -18,9 +18,8 @@ A window/task switcher in the style of the macOS app switcher, built as an
   that window's **workspace**.
 - Every item is a **still window snapshot** (captured when the switcher opens)
   with the **app icon in the top-left corner**, arranged in a horizontal strip
-  centered on the screen. Windows that can't be captured fall back to just their
-  app icon.
-- Compatible with Omarchy Themes. 
+  centered on the screen.
+- Compatible with **Omarchy Themes**. 
 
 ## Requirements
 
@@ -31,31 +30,14 @@ A window/task switcher in the style of the macOS app switcher, built as an
 
 ## Installation
 
-The plugin is a standard Omarchy manifest plugin: `manifest.json` lives at the
-repo root with `entryPoints` pointing at `Service.qml`, and it passes
-`omarchy plugin validate`. Install it from this repository with the official
-Omarchy tooling:
+Install it from this repository with the official Omarchy tooling:
 
 ```sh
 omarchy plugin add https://github.com/ewweberlin/QuickSwitch.git --enable
 ```
 
-This clones the repo into `~/.config/omarchy/plugins/`, validates it against
-the manifest schema (refusing anything the shell would reject), and enables it.
+This clones the repo into `~/.config/omarchy/plugins/`, and enables it.
 
-### Local development
-
-If you are developing on this checkout, link it in place instead of using
-`plugin add` (which refuses to overwrite an existing install):
-
-```sh
-ln -sfn "$PWD" ~/.config/omarchy/plugins/ewweberlin.quickswitch
-omarchy plugin enable ewweberlin.quickswitch
-```
-
-Saving a file anywhere under `~/.config/omarchy/plugins/` hot-reloads the
-plugin; if a change does not apply, force a rescan with
-`omarchy-shell shell rescanPlugins`.
 
 ### Removal
 
@@ -110,11 +92,3 @@ hyprctl dispatch 'hl.dsp.global("ewweberlin.quickswitch:next")'   # opens the sw
 - Colors come from the shell `Color` singleton, so the switcher follows the
   active Omarchy theme automatically.
 
-## Files
-
-| File                     | Purpose                                        |
-|--------------------------|------------------------------------------------|
-| `manifest.json`          | Plugin manifest (`kind: service`)              |
-| `Service.qml`            | Core overlay, cards, input handling            |
-| `logic.js`               | MRU ordering, grouping, icon resolution        |
-| `task-switch-bindings.lua` | Hyprland binds to include from `bindings.lua` |
