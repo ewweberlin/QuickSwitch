@@ -30,16 +30,46 @@ A window/task switcher in the style of the macOS app switcher, built as an
 
 ## Installation
 
-The `manifest.json` lives at the repo root (required by `omarchy plugin add`),
-with `entryPoints` pointing at `Service.qml`.
+The plugin is a standard Omarchy manifest plugin: `manifest.json` lives at the
+repo root with `entryPoints` pointing at `Service.qml`, and it passes
+`omarchy plugin validate`. Install it from this repository with the official
+Omarchy tooling:
 
 ```sh
-# Local development: link a working copy into the plugin dir and enable it.
+omarchy plugin add https://github.com/ewweberlin/QuickSwitch.git --enable
+```
+
+This clones the repo into `~/.config/omarchy/plugins/`, validates it against
+the manifest schema (refusing anything the shell would reject), and enables it.
+
+### Local development
+
+If you are developing on this checkout, link it in place instead of using
+`plugin add` (which refuses to overwrite an existing install):
+
+```sh
 ln -sfn "$PWD" ~/.config/omarchy/plugins/ewwe.task-switch
 omarchy plugin enable ewwe.task-switch
+```
 
-# ...or from a git remote:
-# omarchy plugin add https://github.com/USER/OmarchyPlugins --enable
+Saving a file anywhere under `~/.config/omarchy/plugins/` hot-reloads the
+plugin; if a change does not apply, force a rescan with
+`omarchy-shell shell rescanPlugins`.
+
+### Removal
+
+```sh
+omarchy plugin remove ewwe.task-switch     # or: provide id interactively
+omarchy plugin disable ewwe.task-switch    # disable without deleting
+```
+
+`plugin remove` unloads and disables the plugin, then handles each install
+flavor: it **unlinks** a symlinked checkout (source stays in place), **deletes**
+a cloned install, or **backs up** a plain folder. `plugin add` installs from
+git can be updated later with:
+
+```sh
+omarchy plugin update ewwe.task-switch
 ```
 
 Bindings — add this line to `~/.config/hypr/bindings.lua` so plugin updates
