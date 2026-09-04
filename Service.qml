@@ -10,7 +10,7 @@ import "logic.js" as Logic
 Item {
     id: root
 
-    readonly property string shortAppId: "ewweberlin.QuickSwitch"
+    readonly property string shortAppId: "ewweberlin.quickswitch"
 
     property bool open: false
     property var windows: []
