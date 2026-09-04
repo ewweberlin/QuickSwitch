@@ -11,7 +11,6 @@ A window/task switcher in the style of the macOS app switcher, built as an
 
 - **SUPER+TAB** opens the switcher; tap **TAB** repeatedly while holding SUPER
   to advance the selection (most-recently-used order, current window skipped).
-- **Left/Right arrows** (and Tab / Shift+Tab, Up/Down) move the selection.
 - **Mouse hover** highlights an item; **click** activates it.
 - **SUPER+Q** quits the highlighted app (keeping the switcher open; the closed
   window disappears from the strip).
@@ -21,6 +20,7 @@ A window/task switcher in the style of the macOS app switcher, built as an
   with the **app icon in the top-left corner**, arranged in a horizontal strip
   centered on the screen. Windows that can't be captured fall back to just their
   app icon.
+- Compatible with Omarchy Themes. 
 
 ## Requirements
 
