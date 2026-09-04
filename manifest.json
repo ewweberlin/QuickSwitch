@@ -3,7 +3,7 @@
   "id": "ewweberlin.QuickSwitch",
   "name": "QuickSwitch",
   "version": "1.0.0",
-  "author": "Ewgeni Weber",
+  "author": "ewweberlin",
   "license": "MIT",
   "description": "macOS-style task/window switcher with window previews. Hold SUPER, tap TAB to cycle, release SUPER to switch to the selected window's workspace. SUPER+Q quits the highlighted app.",
   "kinds": ["service"],
