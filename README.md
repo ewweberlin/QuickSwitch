@@ -1,4 +1,4 @@
-# ewwe.task-switch — macOS-style task switcher for Omarchy/Hyprland
+# QuickSwitch — macOS-style task switcher for Omarchy/Hyprland
 
 A window/task switcher in the style of the macOS app switcher, built as an
 [Omarchy](https://omarchy.org/) shell plugin (QML hosted by the long-running
