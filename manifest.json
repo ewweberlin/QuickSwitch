@@ -11,7 +11,7 @@
   "entryPoints": {"service": "Service.qml"}
   "service": {
     "displayName": "QuickSwitch",
+    "description": "macOS-style task/window switcher",
     "category": "Desktop",
     "allowMultiple": false,
-    "defaultSection": "center"
 }
