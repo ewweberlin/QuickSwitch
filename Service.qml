@@ -390,9 +390,7 @@ Item {
                                         width: 34
                                         height: 34
                                         radius: Style.cornerRadius
-                                        color: Color.popups.background
-                                        border.color: Qt.alpha(Color.popups.border, 0.6)
-                                        border.width: 1
+                                        color: "transparent"
                                         z: 4
 
                                         Image {
