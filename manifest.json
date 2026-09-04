@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "ewwe.task-switch",
-  "name": "Task switch",
+  "id": "ewweberlin.QuickSwitch",
+  "name": "QuickSwitch",
   "version": "0.1.0",
-  "author": "fruitydragon",
+  "author": "ewweberlin",
   "description": "macOS-style task/window switcher with window previews. Hold SUPER, tap TAB to cycle, release SUPER to switch to the selected window's workspace. SUPER+Q quits the highlighted app.",
   "kinds": [
     "service"

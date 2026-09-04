@@ -10,7 +10,7 @@ import "logic.js" as Logic
 Item {
     id: root
 
-    readonly property string shortAppId: "ewwe.task-switch"
+    readonly property string shortAppId: "ewweberlin.QuickSwitch"
 
     property bool open: false
     property var windows: []

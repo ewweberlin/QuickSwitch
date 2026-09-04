@@ -48,8 +48,8 @@ If you are developing on this checkout, link it in place instead of using
 `plugin add` (which refuses to overwrite an existing install):
 
 ```sh
-ln -sfn "$PWD" ~/.config/omarchy/plugins/ewwe.task-switch
-omarchy plugin enable ewwe.task-switch
+ln -sfn "$PWD" ~/.config/omarchy/plugins/ewweberlin.QuickSwitch
+omarchy plugin enable ewweberlin.QuickSwitch
 ```
 
 Saving a file anywhere under `~/.config/omarchy/plugins/` hot-reloads the
@@ -59,8 +59,8 @@ plugin; if a change does not apply, force a rescan with
 ### Removal
 
 ```sh
-omarchy plugin remove ewwe.task-switch     # or: provide id interactively
-omarchy plugin disable ewwe.task-switch    # disable without deleting
+omarchy plugin remove ewweberlin.QuickSwitch     # or: provide id interactively
+omarchy plugin disable ewweberlin.QuickSwitch    # disable without deleting
 ```
 
 `plugin remove` unloads and disables the plugin, then handles each install
@@ -69,14 +69,14 @@ a cloned install, or **backs up** a plain folder. `plugin add` installs from
 git can be updated later with:
 
 ```sh
-omarchy plugin update ewwe.task-switch
+omarchy plugin update ewweberlin.QuickSwitch
 ```
 
 Bindings — add this line to `~/.config/hypr/bindings.lua` so plugin updates
 apply without touching your config:
 
 ```lua
-dofile(os.getenv("HOME") .. "/.config/omarchy/plugins/ewwe.task-switch/task-switch-bindings.lua")
+dofile(os.getenv("HOME") .. "/.config/omarchy/plugins/ewweberlin.QuickSwitch/task-switch-bindings.lua")
 ```
 
 Then restart the shell and reload Hyprland:
@@ -93,7 +93,7 @@ The `SUPER + TAB` shortcut should appear in `hyprctl globalshortcuts`.
 ### Manual test
 
 ```sh
-hyprctl dispatch 'hl.dsp.global("ewwe.task-switch:next")'   # opens the switcher
+hyprctl dispatch 'hl.dsp.global("ewweberlin.QuickSwitch:next")'   # opens the switcher
 ```
 
 ## Behavior details
