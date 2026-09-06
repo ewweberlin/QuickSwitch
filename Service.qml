@@ -19,6 +19,7 @@ Item {
     property bool sawKeyEvent: false
     property bool modsHeld: false
     property string pendingAddr: ""
+    property real lastRefreshTime: 0
 
     function next() { if (windows.length) selected = (selected + 1) % windows.length }
     function prev() { if (windows.length) selected = (selected + windows.length - 1) % windows.length }
@@ -56,6 +57,7 @@ Item {
         if (!entry || !entry.address) return
         const addr = entry.address
         console.log("[task-switch] quitSelected addr=", addr, "cls=", entry.cls)
+        root.lastRefreshTime = Date.now()
         quitProc.command = ["hyprctl", "dispatch",
             'hl.dsp.window.close({ window = "address:' + addr + '" })']
         quitProc.running = true
@@ -110,6 +112,47 @@ Item {
             } else {
                 root.openSwitcher()
             }
+        }
+    }
+
+    // Arrow keys (SUPER+Left/Right/Up/Down). The default Omarchy tiling
+    // bindings consume these before they reach the overlay's exclusive
+    // keyboard grab, so we intercept them here and re-dispatch: while the
+    // switcher is open they cycle prev/next; when closed they restore the
+    // original "focus adjacent window" behavior.
+    GlobalShortcut {
+        appid: root.shortAppId
+        name: "focus-left"
+        onPressed: {
+            if (root.open) { root.sawKeyEvent = true; root.modsHeld = true; root.prev() }
+            else { Hyprland.dispatch('hl.dsp.focus({ direction = "l" })') }
+        }
+    }
+
+    GlobalShortcut {
+        appid: root.shortAppId
+        name: "focus-right"
+        onPressed: {
+            if (root.open) { root.sawKeyEvent = true; root.modsHeld = true; root.next() }
+            else { Hyprland.dispatch('hl.dsp.focus({ direction = "r" })') }
+        }
+    }
+
+    GlobalShortcut {
+        appid: root.shortAppId
+        name: "focus-up"
+        onPressed: {
+            if (root.open) { root.sawKeyEvent = true; root.modsHeld = true; root.prev() }
+            else { Hyprland.dispatch('hl.dsp.focus({ direction = "u" })') }
+        }
+    }
+
+    GlobalShortcut {
+        appid: root.shortAppId
+        name: "focus-down"
+        onPressed: {
+            if (root.open) { root.sawKeyEvent = true; root.modsHeld = true; root.next() }
+            else { Hyprland.dispatch('hl.dsp.focus({ direction = "d" })') }
         }
     }
 
@@ -237,8 +280,8 @@ Item {
                 Item {
                     id: stripWrap
                     anchors.centerIn: parent
-                    implicitWidth: strip.implicitWidth
-                    implicitHeight: strip.implicitHeight
+                    width: strip.width
+                    height: strip.height
                     focus: true
                     Keys.priority: Keys.BeforeItem
 
@@ -250,12 +293,24 @@ Item {
                         borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Style.normalBorderWidth)
                     }
 
-                    Row {
+                    Flow {
                         id: strip
                         anchors.centerIn: parent
+                        width: Math.min(panel.width * 0.85, naturalWidth)
                         padding: Style.spacing.panelPadding
                         spacing: Style.spacing.panelPadding
                         z: 2
+
+                        // Width the strip would occupy with every card in a
+                        // single horizontal row. Flow.implicitWidth does NOT
+                        // sum its children, so compute it explicitly (each
+                        // card is a fixed 180px + spacing/padding).
+                        readonly property real naturalWidth: {
+                            const n = root.windows.length
+                            if (!n) return 0
+                            const spacing = Style.spacing.panelPadding
+                            return 2 * padding + (n - 1) * spacing + n * 180
+                        }
 
                         Repeater {
                             model: root.windows
@@ -426,7 +481,7 @@ Item {
                         anchors.horizontalCenter: strip.horizontalCenter
                         anchors.top: strip.bottom
                         anchors.topMargin: Style.spacing.xl
-                        width: Math.min(strip.implicitWidth, 640)
+                        width: Math.min(strip.width, 640)
                         maximumLineCount: 1
                         elide: Text.ElideRight
                         horizontalAlignment: Text.AlignHCenter
@@ -474,10 +529,22 @@ Item {
                         root.sawKeyEvent = true
                         const superReleasing = event.key === Qt.Key_Meta
                             || event.key === Qt.Key_Super_L || event.key === Qt.Key_Super_R
-                        const superHeld = (event.modifiers & Qt.MetaModifier) && !superReleasing
-                        root.modsHeld = !!superHeld
-                        if (!root.modsHeld)
+                        // event.modifiers is NOT reliably set through the
+                        // exclusive grab (see the onPressed handler), so it
+                        // must not gate closing. Releasing a non-SUPER key
+                        // (Q, TAB, arrows) while the grab is active means
+                        // SUPER is still held — keep the switcher open. Only
+                        // an actual SUPER key release closes it.
+                        if (superReleasing) {
+                            // Closing a window can briefly disrupt the keyboard
+                            // grab and deliver a synthetic SUPER release; ignore
+                            // it right after a quit so the strip survives.
+                            if (Date.now() - root.lastRefreshTime < 200) return
+                            root.modsHeld = false
                             panel.activate()
+                        } else {
+                            root.modsHeld = true
+                        }
                     }
 
                     HoverHandler {
