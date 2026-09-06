@@ -38,6 +38,22 @@ omarchy plugin add https://github.com/ewweberlin/QuickSwitch.git --enable
 
 This clones the repo into `~/.config/omarchy/plugins/`, and enables it.
 
+Bindings (enables SUPER + TAB) — add this line to `~/.config/hypr/bindings.lua`:
+
+```lua
+dofile(os.getenv("HOME") .. "/.config/omarchy/plugins/ewweberlin.quickswitch/task-switch-bindings.lua")
+```
+
+Restart the shell, reload Hyprland and Bindings:
+
+```sh
+omarchy restart shell
+hyprctl reload
+hyprctl configerrors   # should be clean
+hyprctl globalshortcuts
+```
+
+The `SUPER + TAB` shortcut should appear in `hyprctl globalshortcuts`.
 
 ### Removal
 
@@ -55,29 +71,6 @@ git can be updated later with:
 omarchy plugin update ewweberlin.quickswitch
 ```
 
-Bindings — add this line to `~/.config/hypr/bindings.lua` so plugin updates
-apply without touching your config:
-
-```lua
-dofile(os.getenv("HOME") .. "/.config/omarchy/plugins/ewweberlin.quickswitch/task-switch-bindings.lua")
-```
-
-Then restart the shell and reload Hyprland:
-
-```sh
-omarchy restart shell
-hyprctl reload
-hyprctl configerrors   # should be clean
-hyprctl globalshortcuts
-```
-
-The `SUPER + TAB` shortcut should appear in `hyprctl globalshortcuts`.
-
-### Manual test
-
-```sh
-hyprctl dispatch 'hl.dsp.global("ewweberlin.quickswitch:next")'   # opens the switcher
-```
 
 ## Behavior details
 
