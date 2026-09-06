@@ -428,10 +428,10 @@ Item {
 
                                         Image {
                                             anchors.centerIn: parent
-                                            width: 44
-                                            height: 44
-                                            sourceSize.width: 44
-                                            sourceSize.height: 44
+                                            width: 64
+                                            height: 64
+                                            sourceSize.width: 64
+                                            sourceSize.height: 64
                                             fillMode: Image.PreserveAspectFit
                                             source: win ? root.iconPathFor(win.cls, win.title) : ""
                                         }
@@ -442,17 +442,17 @@ Item {
                                         anchors.left: parent.left
                                         anchors.top: parent.top
                                         anchors.margins: Style.spacing.md
-                                        width: 34
-                                        height: 34
+                                        width: 56
+                                        height: 56
                                         radius: Style.cornerRadius
                                         color: "transparent"
                                         z: 4
 
                                         Image {
                                             anchors.fill: parent
-                                            anchors.margins: 5
-                                            sourceSize.width: 24
-                                            sourceSize.height: 24
+                                            anchors.margins: 4
+                                            sourceSize.width: 48
+                                            sourceSize.height: 48
                                             fillMode: Image.PreserveAspectFit
                                             source: win ? root.iconPathFor(win.cls, win.title) : ""
                                         }
