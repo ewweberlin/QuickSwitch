@@ -296,21 +296,19 @@ Item {
                     Flow {
                         id: strip
                         anchors.centerIn: parent
-                        width: Math.min(panel.width * 0.85, naturalWidth)
                         padding: Style.spacing.panelPadding
                         spacing: Style.spacing.panelPadding
                         z: 2
 
-                        // Width the strip would occupy with every card in a
-                        // single horizontal row. Flow.implicitWidth does NOT
-                        // sum its children, so compute it explicitly (each
-                        // card is a fixed 180px + spacing/padding).
-                        readonly property real naturalWidth: {
+                        readonly property real contentWidth: {
                             const n = root.windows.length
                             if (!n) return 0
                             const spacing = Style.spacing.panelPadding
-                            return 2 * padding + (n - 1) * spacing + n * 180
+                            const cardW = 180
+                            const maxCards = Math.floor((panel.width * 0.85 - 2 * padding + spacing) / (cardW + spacing))
+                            return 2 * padding + Math.min(n, maxCards) * cardW + Math.max(0, Math.min(n, maxCards) - 1) * spacing
                         }
+                        width: contentWidth
 
                         Repeater {
                             model: root.windows
