@@ -9,11 +9,10 @@ A beautiful, themed window/task switcher in the style of the macOS app switcher,
 
 ## Features
 
-- **SUPER+TAB** opens the switcher; tap **TAB** repeatedly while holding SUPER
-  to advance the selection (most-recently-used order, current window skipped).
+- **SUPER+TAB** opens the switcher.
+- tap **TAB (or Arrow Keys)** repeatedly while holding SUPER to advance the selection (most-recently-used order, current window skipped).
 - **Mouse hover** highlights an item; **click** activates it.
-- **SUPER+Q** quits the highlighted app (keeping the switcher open; the closed
-  window disappears from the strip).
+- **SUPER+Q** quits the highlighted app.
 - **Release SUPER** to activate the selected window — which switches you to
   that window's **workspace**.
 - Every item is a **still window snapshot** (captured when the switcher opens)
