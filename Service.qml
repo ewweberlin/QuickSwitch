@@ -290,7 +290,7 @@ Item {
                         anchors.fill: strip
                         radius: Style.cornerRadius
                         color: Color.popups.background
-                        borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Style.normalBorderWidth)
+                        borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, 2)
                     }
 
                     Flow {
@@ -341,7 +341,7 @@ Item {
                                     borderSpec: Border.surfaceSpec(
                                         "popups", "border",
                                         isSelected || hover.hovered ? Color.menu.selectedBorder : Color.popups.border,
-                                        Style.normalBorderWidth)
+                                        2)
 
                                     // Omarchy selection/hover affordance: a subtle
                                     // fill highlight instead of a hard-coded border.
@@ -364,7 +364,7 @@ Item {
                                     ScreencopyView {
                                         id: thumb
                                         anchors.fill: parent
-                                        anchors.margins: 1
+                                        anchors.margins: 2
                                         z: 3
                                         captureSource: win ? win.handle : null
                                         live: false
