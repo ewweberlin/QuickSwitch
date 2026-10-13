@@ -533,6 +533,7 @@ Item {
                         maximumLineCount: 1
                         elide: Text.ElideRight
                         horizontalAlignment: Text.AlignHCenter
+                        textFormat: Text.PlainText
                         text: root.windows.length ? root.windows[root.selected].title : ""
                         color: Color.popups.text
                         font.family: Style.font.family
