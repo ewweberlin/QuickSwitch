@@ -63,12 +63,34 @@ function groupByWorkspace(ordered) {
 // Icon cascade: desktop entry by id variants -> StartupWMClass scan ->
 // app Name-substring-of-title scan (Chrome PWAs) -> icon theme variants ->
 // generic. Mirrors the icon resolution pattern used elsewhere in Omarchy.
+//
+// Only freedesktop icon *names* (no paths, URIs, separators or traversal) may
+// be handed to Quickshell.iconPath's themed lookup: an application controls its
+// own window class, so a class such as "/tmp/evil.png" would otherwise be
+// treated as a direct file source and reach Qt/libpng through the shared
+// shell, where retained compressed text metadata has no memory budget. Desktop
+// entry icons are a separate, installed source and are intentionally left
+// untouched.
+function isSafeIconName(value) {
+    const s = String(value == null ? "" : value).trim();
+    if (!s) return false;
+    // No path separators, traversal or URI schemes can reach the filesystem
+    // or a QML image provider directly.
+    if (s.indexOf("/") !== -1 || s.indexOf("\\") !== -1) return false;
+    if (s.indexOf("..") !== -1) return false;
+    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(s)) return false;
+    // Freedesktop icon names are simple identifiers.
+    return /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(s);
+}
+
 function iconPathFor(DesktopEntries, Quickshell, cls, title) {
     const clsLower = String(cls || "").toLowerCase();
-    for (const v of [cls, clsLower, cls.replace(/-/g, ""), cls.split(".")[0]]) {
-        if (!v) continue;
-        const e = DesktopEntries.byId(v);
-        if (e && e.icon) return Quickshell.iconPath(e.icon, "application-x-executable");
+    if (isSafeIconName(String(cls || ""))) {
+        for (const v of [cls, clsLower, String(cls || "").replace(/-/g, ""), String(cls || "").split(".")[0]]) {
+            if (!isSafeIconName(v)) continue;
+            const e = DesktopEntries.byId(v);
+            if (e && e.icon) return Quickshell.iconPath(e.icon, "application-x-executable");
+        }
     }
 
     const all = DesktopEntries.applications.values;
@@ -86,10 +108,15 @@ function iconPathFor(DesktopEntries, Quickshell, cls, title) {
         }
     }
 
-    for (const v of [cls, clsLower, cls.split("-")[0], cls.split(".").pop()]) {
-        if (!v) continue;
-        const p = Quickshell.iconPath(v, true);
-        if (p) return p;
+    // Application-controlled class values that are not themselves safe icon names
+    // (e.g. absolute paths) must not feed their derived fragments to the themed
+    // lookup either; only legitimate, simple class names reach this point.
+    if (isSafeIconName(String(cls || ""))) {
+        for (const v of [cls, clsLower, String(cls || "").split("-")[0], String(cls || "").split(".").pop()]) {
+            if (!isSafeIconName(v)) continue;
+            const p = Quickshell.iconPath(v, true);
+            if (p) return p;
+        }
     }
 
     return Quickshell.iconPath("application-x-executable");
