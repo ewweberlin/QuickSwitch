@@ -6,7 +6,7 @@ A beautiful, themed window/task switcher in the style of the macOS app switcher,
 
 <img width="2248" height="722" alt="screenshot-2026-09-04_03-21-39" src="https://github.com/user-attachments/assets/0e77e772-13e6-4798-ae91-3ad1c6844d77" />
 
-<br><br><br>
+<br><br>
 
 ☕ **If you like this project, buy me a coffee** → [paypal.me](https://paypal.me/EwgeniWeber)
 
