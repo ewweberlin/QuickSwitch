@@ -62,8 +62,11 @@ Item {
         id: focusTimer
         interval: 110
         onTriggered: {
-            if (root.pendingAddr)
+            if (root.pendingAddr) {
+                // Floating windows stay under their siblings on focus alone; raise the target too.
                 Hyprland.dispatch('hl.dsp.focus({ window = "address:' + root.pendingAddr + '" })')
+                Hyprland.dispatch('hl.dsp.window.bring_to_top({ window = "address:' + root.pendingAddr + '" })')
+            }
             root.pendingAddr = ""
         }
     }
